@@ -6,9 +6,6 @@ import java.util.List;
 
 // BEGIN
 class App {
-    public static void main(String[] args) {
-        System.out.println(scrabble("", "java"));
-    }
 
     public static boolean scrabble(String letters, String word) {
         List<String> lettersList = new ArrayList<>();
