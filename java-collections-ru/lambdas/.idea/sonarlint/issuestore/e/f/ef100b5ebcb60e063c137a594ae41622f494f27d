@@ -1,0 +1,8 @@
+
+k
+java:S1192"IDefine a constant instead of duplicating this literal "birthday" 5 times.(ˆˆ—Þúÿÿÿÿ8ŸÖý¶’1
+i
+java:S1192"GDefine a constant instead of duplicating this literal "gender" 5 times.(Ìýèüúÿÿÿÿ8ŸÖý¶’1
+o
+java:S6204"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8»Öý¶’1
+U	java:S106"9Replace this use of System.out or System.err by a logger.(¸â¢†8ÇÖý¶’1

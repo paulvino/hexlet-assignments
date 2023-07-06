@@ -1,0 +1,8 @@
+
+I
+java:S1481"'Remove this unused "el" local variable.(ÙíË‚ıÿÿÿÿ8÷ˆÁ·’1
+J	java:S108")Either remove or fill this block of code.(ÙíË‚ıÿÿÿÿ8÷ˆÁ·’1
+Z	java:S106""9Replace this use of System.out or System.err by a logger.(Ùº†Ğÿÿÿÿÿ8ûˆÁ·’1
+Z	java:S106%"9Replace this use of System.out or System.err by a logger.(ºËõ¦úÿÿÿÿ8‰Á·’1
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ƒ‰Á·’1
