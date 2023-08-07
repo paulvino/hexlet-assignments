@@ -6,7 +6,7 @@ public class Point {
     private Integer y;
 
     // Конструктор
-    public Point(Integer x,Integer y) {
+    public Point(Integer x, Integer y) {
         this.x = x;
         this.y = y;
     }
