@@ -10,7 +10,7 @@ public final class App {
 
         // BEGIN
         var app = Javalin.create(config -> {
-                config.plugins.enableDevLogging();
+            config.plugins.enableDevLogging();
         });
 
         List<String> phones = Data.getPhones();
