@@ -20,5 +20,14 @@ public class Circle {
         }
         return Math.PI * (getRadius() * getRadius());
     }
+
+//    Эталонное решение (учителя):
+//    public double getSquare() throws NegativeRadiusException {
+//        if (this.getRadius() < 0) {
+//            throw new NegativeRadiusException("Radius can not be negative");
+//        }
+//
+//        return Math.PI * Math.pow(circleRadius, 2);
+//    }
 }
 // END

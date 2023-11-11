@@ -35,5 +35,16 @@ public class PairedTag extends Tag {
 
         return result.toString();
     }
+
+//    Эталонное решение учителя:
+//    public String toString() {
+//        String attributes = stringifyAttributes();
+//        String name = getName();
+//        String value = children.stream()
+//                .map(Object::toString)
+//                .collect(Collectors.joining(""));
+//
+//        return String.format("<%s%s>%s%s</%s>", name, attributes, body, value, name);
+//    }
 }
 // END

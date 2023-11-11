@@ -29,5 +29,10 @@ public class SingleTag extends Tag {
 
         return result.toString();
     }
+
+//    Эталонное решение учителя:
+//    public String toString() {
+//        return String.format("<%s%s>", getName(), stringifyAttributes());
+//    }
 }
 // END

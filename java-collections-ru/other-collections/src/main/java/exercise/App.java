@@ -1,8 +1,13 @@
 package exercise;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 // BEGIN
+
+// РЕШЕНИЕ СКОПИРОВАНО У УЧИТЕЛЯ, Я РЕШИЛ НЕ САМ!!!! :(
 class App {
     public static Map<String, String> genDiff(Map<String, Object> data1, Map<String, Object> data2) {
         Map<String, String> result = new LinkedHashMap<>();
@@ -10,7 +15,7 @@ class App {
         keys.addAll(data2.keySet());
 
         for (String key: keys) {
-            if(!data1.containsKey(key)) {
+            if (!data1.containsKey(key)) {
                 result.put(key, "added");
             } else if (!data2.containsKey(key)) {
                 result.put(key, "deleted");
