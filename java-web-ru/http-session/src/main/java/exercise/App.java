@@ -28,7 +28,7 @@ public final class App {
 //                    .filter(userNum ->
 //                            Integer.parseInt(userNum.get("id")) >= min
 //                            && Integer.parseInt(userNum.get("id")) <= max)
-                    .filter(i -> USERS.indexOf(i) >= min && USERS.indexOf(i) <= max)
+                    .filter(i -> USERS.indexOf(i) >= min - 1 && USERS.indexOf(i) <= max - 1)
                     .toList();
 
             ctx.json(result);
