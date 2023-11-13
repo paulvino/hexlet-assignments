@@ -25,9 +25,10 @@ public final class App {
             var max = page * per;
 
             var result = USERS.stream()
-                    .filter(userNum ->
-                            Integer.parseInt(userNum.get("id")) >= min
-                            && Integer.parseInt(userNum.get("id")) <= max)
+//                    .filter(userNum ->
+//                            Integer.parseInt(userNum.get("id")) >= min
+//                            && Integer.parseInt(userNum.get("id")) <= max)
+                    .filter(i -> USERS.indexOf(i) >= min && USERS.indexOf(i) <= max)
                     .toList();
 
             ctx.json(result);
