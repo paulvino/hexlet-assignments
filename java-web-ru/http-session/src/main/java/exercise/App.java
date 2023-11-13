@@ -21,14 +21,14 @@ public final class App {
             // per is usersQuantity
             var per = ctx.queryParamAsClass("per", Integer.class).getOrDefault(5);
 
-            var min = page == 1 ? page : page * (per - 1);
-            var max = page * per;
+            var min = page == 1 ? 0 : (page - 1) * per;
+            var max = (page * per) - 1; // 2
+//            var min = (page - 1) * per;
 
             var result = USERS.stream()
-//                    .filter(userNum ->
-//                            Integer.parseInt(userNum.get("id")) >= min
-//                            && Integer.parseInt(userNum.get("id")) <= max)
-                    .filter(i -> USERS.indexOf(i) >= min - 1 && USERS.indexOf(i) <= max - 1)
+                    .filter(i ->
+                            USERS.indexOf(i) >= min
+                            && USERS.indexOf(i) <= max)
                     .toList();
 
             ctx.json(result);
