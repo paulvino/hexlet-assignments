@@ -20,19 +20,34 @@ public final class App {
         });
 
         // BEGIN
-        app.get("/companies/{id}", ctx -> {
-            var companyId = ctx.pathParamAsClass("id", Integer.class).getOrDefault(-1);
+//        app.get("/companies/{id}", ctx -> {
+//            var companyId = ctx.pathParamAsClass("id", Integer.class).getOrDefault(-1);
+//
+//            if (companyId >= (COMPANIES.size() + 1) || companyId < 0) {
+//                throw new NotFoundResponse("Company not found");
+//            }
+//
+//            for (var company : COMPANIES) {
+//                if (company.get("id").equalsIgnoreCase(companyId.toString())) {
+//                    ctx.json(company);
+//                }
+//            }
+//        });
 
-            if (companyId >= (COMPANIES.size() + 1) || companyId < 0) {
+        app.get("/companies/{id}", ctx -> {
+            var id = ctx.pathParam("id");
+            Map<String, String> company = COMPANIES.stream()
+                    .filter(c -> c.get("id").equals(id))
+                    .findFirst()
+                    .orElse(null);
+
+            if (company == null) {
                 throw new NotFoundResponse("Company not found");
             }
 
-            for (var company : COMPANIES) {
-                if (company.get("id").equalsIgnoreCase(companyId.toString())) {
-                    ctx.json(company);
-                }
-            }
+            ctx.json(company);
         });
+
         // END
 
         app.get("/companies", ctx -> {
