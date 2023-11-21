@@ -21,11 +21,10 @@ public final class App {
 
         // BEGIN
         app.get("/users/{id}", ctx -> {
-            var id = ctx.pathParam("id");
+            var id = ctx.pathParamAsClass("id", Long.class).get();
 
             var user = USERS.stream()
-                    .filter(u -> u.getId() == Long.parseLong(id))
-                    //.filter(u -> String.valueOf(u.getId()).equals(id))
+                    .filter(u -> id.equals(u.getId()))
                     .findFirst()
                     .orElse(null);
 

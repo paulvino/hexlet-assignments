@@ -17,7 +17,9 @@
                 @for(var user : usersPage.getUsers())
                     <tr>
                         <td>${user.getId()}</td>
-                        <td>${user.getFirstName()} ${user.getLastName()}</td>
+                        <td>
+                            <a href="/users/${user.getId()}">${user.getFirstName()} ${user.getLastName()}</a>
+                        </td>
                         <td>${user.getEmail()}</td>
                     </tr>
                 @endfor
