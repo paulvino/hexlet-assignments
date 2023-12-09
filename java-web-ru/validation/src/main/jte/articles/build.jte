@@ -17,17 +17,14 @@
             <div>
                 <label>
                     A title of your article:
-                    <input type="text" name="title" value="${page.getTitle()}">
+                    <input type="text" name="title" value="${page.getTitle()}" />
                 </label>
             </div>
             <div>
-                <label>
-                    A content of your article:
-                    <!--<textarea name="content">${page.getContent()}</textarea>-->
-                    <input type="text" name="content" value="${page.getContent()}">
-                </label>
+                <label>A content of your article:</label>
+                <textarea type="text" name="content">${page.getContent()}</textarea>
             </div>
-            <input type="submit" value="Done!">
+            <input type="submit" value="Сохранить">
         </form>
     `
 )

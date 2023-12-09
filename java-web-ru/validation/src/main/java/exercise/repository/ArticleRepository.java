@@ -21,20 +21,20 @@ public class ArticleRepository {
         return users;
     }
 
-    public static Article find(Long id) {
+    public static Optional<Article> find(Long id) {
         var article = entities.stream()
                 .filter(entity -> entity.getId().equals(id))
                 .findAny()
                 .orElse(null);
-        return article;
+        return Optional.of(article);
     }
 
-    public static Article findByTitle(String title) {
+    public static Optional<Article> findByTitle(String title) {
         var article = entities.stream()
                 .filter(entity -> entity.getTitle().equals(title))
                 .findAny()
                 .orElse(null);
-        return article;
+        return Optional.of(article);
     }
 
     public static boolean existsByTitle(String title) {
