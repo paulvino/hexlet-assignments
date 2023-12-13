@@ -14,7 +14,7 @@ import io.javalin.validation.ValidationException;
 public class SessionsController {
 
     // BEGIN
-    public static void getMainPage(Context ctx) {
+    public static void index(Context ctx) {
         var page = new MainPage(ctx.sessionAttribute("currentUser"));
         ctx.render("index.jte", Collections.singletonMap("page", page));
     }
@@ -24,7 +24,7 @@ public class SessionsController {
         ctx.render("build.jte", Collections.singletonMap("page", page));
     }
 
-    public static void login(Context ctx) {
+    public static void create(Context ctx) {
         try {
             var name = ctx.formParamAsClass("name", String.class)
                     .check(value -> UsersRepository.existsByName(value), "Wrong username")
@@ -45,7 +45,7 @@ public class SessionsController {
         }
     }
 
-    public static void logout(Context ctx) {
+    public static void destroy(Context ctx) {
         ctx.sessionAttribute("currentUser", null);
         ctx.redirect(NamedRoutes.rootPath());
     }
