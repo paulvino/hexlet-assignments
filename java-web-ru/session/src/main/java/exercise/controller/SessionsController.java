@@ -15,38 +15,33 @@ public class SessionsController {
 
     // BEGIN
     public static void index(Context ctx) {
-        var page = new MainPage(ctx.sessionAttribute("currentUser"));
+        var page = new MainPage(ctx.sessionAttribute("user"));
         ctx.render("index.jte", Collections.singletonMap("page", page));
     }
 
     public static void build(Context ctx) {
-        var page = new LoginPage(null, null);
+        var page = new LoginPage("", "");
         ctx.render("build.jte", Collections.singletonMap("page", page));
     }
 
     public static void create(Context ctx) {
-        try {
-            var name = ctx.formParamAsClass("name", String.class)
-                    .check(value -> UsersRepository.existsByName(value), "Wrong username")
-                    .get();
-            var user = UsersRepository.findByName(name);
+        var name = ctx.formParam("name");
+        var password = ctx.formParam("password");
 
-            var password = ctx.formParamAsClass("password", String.class)
-                    .check(value -> encrypt(value).hashCode() == user.getPassword().hashCode(), "Wrong password")
-                    .get();
+        var user = UsersRepository.findByName(name);
 
-            ctx.sessionAttribute("currentUser", name);
-            ctx.redirect(NamedRoutes.rootPath());
-
-        } catch (ValidationException e) {
-            var user = ctx.formParam("name");
-            var page = new LoginPage(user, "Wrong username or password");
+        if (user != null && user.getPassword().equals(encrypt(password))) {
+            ctx.sessionAttribute("user", user.getName());
+            ctx.redirect("/");
+        } else {
+            var errorMessage = "Wrong username or password";
+            var page = new LoginPage(name, errorMessage);
             ctx.render("build.jte", Collections.singletonMap("page", page));
         }
     }
 
     public static void destroy(Context ctx) {
-        ctx.sessionAttribute("currentUser", null);
+        ctx.sessionAttribute("user", null);
         ctx.redirect(NamedRoutes.rootPath());
     }
     // END
