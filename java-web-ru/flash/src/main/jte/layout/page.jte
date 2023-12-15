@@ -5,23 +5,39 @@
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet"
-              href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-             crossorigin="anonymous">
-        <title>Flash-messages</title>
-    </head>
-    <body>
-        <p>
-            @if(page != null && page.getFlash() != null)
-            <div class="alert alert-success" role="alert">
-                ${page.getFlash()}
-            </div>
-            @endif
-        </p>
-        ${content}
-    </body>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hexlet Javalin Example</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/posts">Posts</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+@if(page != null && page.getFlash() != null)
+    <div class="alert alert-${page.getFlashType()}" role="alert">
+        ${page.getFlash()}
+    </div>
+@endif
+
+
+<div class="mx-auto p-4 py-md-5">
+    ${content}
+</div>
+
+</body>
 </html>

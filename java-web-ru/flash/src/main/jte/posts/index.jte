@@ -1,17 +1,29 @@
-@import exercise.util.NamedRoutes
 @import exercise.dto.posts.PostsPage
+@import exercise.util.NamedRoutes
 @param PostsPage page
 
 @template.layout.page(
-    page = page,
-    content = @`
-        <h2>Posts</h2>
 
+page = page,
+content = @`
+    <h1>Все посты</h1>
+    <div class="mb-3">
+        <a href="${NamedRoutes.buildPostPath()}">Создать новый пост</a>
+    </div>
+    <table class="table table-striped">
         @for(var post : page.getPosts())
-            <div>
-                <h3>${post.getName()}</h3>
-                <p>${post.getBody()}</p>
-            </div>
+            <tr>
+                <td>
+                    ${post.getId()}
+                </td>
+                <td>
+                    <a href="${NamedRoutes.postPath(post.getId())}">${post.getName()}</a>
+                </td>
+                <td>
+                    ${post.getBody()}
+                </td>
+            </tr>
         @endfor
-    `
+    </table>
+`,
 )
