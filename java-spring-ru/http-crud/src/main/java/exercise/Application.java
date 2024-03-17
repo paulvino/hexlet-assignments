@@ -30,7 +30,8 @@ public class Application {
     @GetMapping("/posts") // Список всех постов
     public List<Post> index(@RequestParam(defaultValue = "10") Integer limit,
                             @RequestParam(defaultValue = "1") Integer page) {
-        return posts.stream().limit(limit).toList();
+//        return posts.stream().limit(limit).toList();
+        return posts.stream().skip((page - 1) * limit).limit(limit).toList();
     }
 
     @GetMapping("/posts/{id}") // Просмотр конкретного поста
