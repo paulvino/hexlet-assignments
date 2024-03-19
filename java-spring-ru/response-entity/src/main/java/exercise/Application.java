@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +41,8 @@ public class Application {
     @PostMapping("/posts") // создание поста
     public ResponseEntity<Post> create(@RequestBody Post post) {
         posts.add(post);
-        return ResponseEntity.created(URI.create("/posts"))
-                .body(post);
+        URI location = URI.create("/posts");
+        return ResponseEntity.created(location).body(post);
     }
 
     @GetMapping("/posts/{id}") // вывод поста
@@ -58,14 +59,15 @@ public class Application {
         var maybePost = posts.stream()
                 .filter(p -> p.getId().equals(id))
                 .findFirst();
+        var status = HttpStatus.NO_CONTENT;
         if (maybePost.isPresent()) {
             var post = maybePost.get();
             post.setId(data.getId());
             post.setBody(data.getBody());
             post.setTitle(data.getTitle());
-            return ResponseEntity.ok(post);
+            status = HttpStatus.OK;
         }
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(status).body(data);
     }
     // END
 
