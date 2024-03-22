@@ -15,28 +15,29 @@ import org.springframework.web.bind.annotation.*;
 public class PostsController {
     private List<Post> posts = Data.getPosts();
 
-    @GetMapping("/users/{id}/posts")
-    public ResponseEntity<List<Post>> index(
-            @RequestParam(defaultValue = "1") long page,
+    @GetMapping("/users/{userId}/posts")
+    public List<Post> show(
+            /*@RequestParam(defaultValue = "1") long page,
             @RequestParam(defaultValue = "10") Integer limit,
-            @PathVariable int id) {
-        var result = posts.stream()
-                .filter(post -> post.getUserId() == id)
-                .skip((page - 1) * limit)
-                .limit(limit)
-                .toList();
-
-        return ResponseEntity.ok(result);
+            @RequestBody Post post, */
+            @PathVariable Integer userId) {
+//        var result = posts.stream()
+//                .filter(post -> post.getUserId() == id)
+//                .skip((page - 1) * limit)
+//                .limit(limit)
+//                .toList();
+//
+//        return ResponseEntity.ok(result);
+        return posts.stream()
+                .filter(p -> p.getUserId() == userId).toList();
     }
 
-    @PostMapping("/users/{id}/posts")
+    @PostMapping("/users/{userId}/posts")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Post> create(
-            @PathVariable int id,
-            @RequestBody Post post) {
-        post.setUserId(id);
+    public Post create(@PathVariable Integer userId, @RequestBody Post post) {
+        post.setUserId(userId);
         posts.add(post);
-        return ResponseEntity.created(URI.create("/users/" + id + "/posts")).body(post);
+        return post;
     }
 }
 // END
