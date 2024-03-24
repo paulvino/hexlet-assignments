@@ -22,14 +22,14 @@ public class Application {
 
     // BEGIN
     @Autowired
-    private UserProperties userProperties;
+    private UserProperties usersInfo;
 
     @GetMapping("/admins")
-    private List<String> adminsIndex() {
-        var adminsEmails = userProperties.getAdmins();
+    public List<String> getAdmins() {
+        var adminsEmails = usersInfo.getAdmins();
         return users.stream()
                 .filter(u -> adminsEmails.contains(u.getEmail()))
-                .map(User::getName)
+                .map(u -> u.getName())
                 .sorted()
                 .toList();
     }
