@@ -47,17 +47,18 @@ public class ProductsController {
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Product update(@PathVariable long id, @RequestBody Product data) {
-        var productOptional = productRepository.findById(id);
-        if (productOptional.isPresent()) {
-            var product = productOptional.get();
-            product.setTitle(data.getTitle());
-            product.setPrice(data.getPrice());
-            return product;
-        } else {
-            throw new ResourceNotFoundException("Product with id " + id + " not found");
-        }
+    public Product update(@PathVariable long id, @RequestBody Product productData) {
+        var product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+
+        product.setTitle(productData.getTitle());
+        product.setPrice(productData.getPrice());
+
+        productRepository.save(product);
+
+        return product;
     }
+
     // END
 
     @DeleteMapping(path = "/{id}")
