@@ -53,6 +53,9 @@ public class TasksController {
 
         task.setTitle(taskData.getTitle());
         task.setDescription(taskData.getDescription());
+
+        taskRepository.save(task);
+
         return task;
     }
     // END
