@@ -26,7 +26,10 @@ public class ProductsController {
     public List<Product> index(
             @RequestParam(defaultValue = Integer.MIN_VALUE + "") Integer min,
             @RequestParam(defaultValue = Integer.MAX_VALUE + "") Integer max) {
-        return productRepository.findByPriceBetweenOrderByPrice(min, max);
+
+        Sort sort = Sort.by(Sort.Order.asc("price"));
+        return productRepository.findByPriceBetween(min, max, sort);
+//        return productRepository.findByPriceBetweenOrderByPrice(min, max);
     }
     // END
 
