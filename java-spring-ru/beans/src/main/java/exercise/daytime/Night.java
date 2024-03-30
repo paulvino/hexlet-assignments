@@ -11,7 +11,8 @@ public class Night implements Daytime {
     // BEGIN
     @PostConstruct
     public void init() {
-        System.out.println("Bean id initialized!");
+        var message = "\nBean Night is initialized!\n";
+        System.out.println(message);
     }
     // END
 }
