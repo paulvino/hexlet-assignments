@@ -35,10 +35,11 @@ public class ProductsController {
     public List<ProductDTO> index() {
         var products = productRepository.findAll();
         return products.stream()
-                .map(product -> {
-                    var productDTO = productMapper.map(product);
-                    return productDTO;
-                })
+//                .map(product -> {
+//                    var productDTO = productMapper.map(product);
+//                    return productDTO;
+//                })
+                .map(p -> productMapper.map(p))
                 .toList();
     }
 
