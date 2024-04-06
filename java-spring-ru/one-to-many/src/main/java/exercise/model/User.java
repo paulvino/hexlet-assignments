@@ -12,7 +12,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -46,18 +45,7 @@ public class User {
     private LocalDate createdAt;
 
     // BEGIN
-    @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @NotNull
+    @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList<>();
-
-    public void addTask(Task task) {
-        tasks.add(task);
-        task.setAssignee(this);
-    }
-
-    public void removeTask(Task task) {
-        tasks.remove(task);
-        task.setAssignee(null);
-    }
     // END
 }

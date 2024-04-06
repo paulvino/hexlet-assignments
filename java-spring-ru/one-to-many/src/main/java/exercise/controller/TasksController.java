@@ -47,7 +47,7 @@ public class TasksController {
 
     @GetMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskDTO show(@PathVariable long id) {
+    public TaskDTO show(@PathVariable Long id) {
         var task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
         return taskMapper.map(task);
@@ -57,30 +57,30 @@ public class TasksController {
     @ResponseStatus(HttpStatus.CREATED)
     public TaskDTO create(@Valid @RequestBody TaskCreateDTO taskData) {
         var task = taskMapper.map(taskData);
+        var user = userRepository.findById(taskData.getAssigneeId())
+                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
+        task.setAssignee(user);
         taskRepository.save(task);
         return taskMapper.map(task);
     }
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskDTO update(@Valid @RequestBody TaskUpdateDTO taskData, @PathVariable long id) {
+    public TaskDTO update(@Valid @RequestBody TaskUpdateDTO taskData, @PathVariable Long id) {
         var task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
+        var user = userRepository.findById(taskData.getAssigneeId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Not found"));
         taskMapper.update(taskData, task);
-
-        var assignee = userRepository.findById(taskData.getAssigneeId())
-                .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
-        assignee.addTask(task);
-
+        task.setAssignee(user);
         taskRepository.save(task);
-        userRepository.save(assignee);
         return taskMapper.map(task);
 
     }
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void destroy(@PathVariable long id) {
+    public void destroy(@PathVariable Long id) {
         taskRepository.deleteById(id);
     }
     // END
