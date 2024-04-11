@@ -41,10 +41,10 @@ public class ProductSpecification {
                 : criteriaBuilder.greaterThan(root.get("rating"), ratingGt));
     }
 
-    private Specification<Product> withTitleCont(String titleCont) {
-        return ((root, query, criteriaBuilder) -> titleCont == null
+    private Specification<Product> withTitleCont(String substring) {
+        return ((root, query, criteriaBuilder) -> substring == null
                 ? criteriaBuilder.conjunction()
-                : criteriaBuilder.like(root.get("title".toLowerCase()), titleCont.toLowerCase()));
+                : criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + substring + "%"));
     }
 }
 // END

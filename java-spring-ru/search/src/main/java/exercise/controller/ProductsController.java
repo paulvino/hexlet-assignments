@@ -42,11 +42,10 @@ public class ProductsController {
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     List<ProductDTO> index(ProductParamsDTO params, @RequestParam(defaultValue = "1") int page) {
-        var spec = specBuilder.build(params);
-        var products = productRepository.findAll(spec, PageRequest.of(page - 1, 10));
-        var result = products.map(productMapper::map).stream().toList();
-
-        return result;
+        var specification = specBuilder.build(params);
+        var products = productRepository
+                .findAll(specification, PageRequest.of(page - 1, 10));
+        return products.map(productMapper::map).toList();
     }
     // END
 
