@@ -29,31 +29,31 @@ public class BooksController {
     @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
     public List<BookDTO> index() {
-        return bookService.getAll();
+        return bookService.getAllBooks();
     }
 
     @GetMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public BookDTO show(@PathVariable Long id) {
-        return bookService.findById(id);
+        return bookService.getBookById(id);
     }
 
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
     public BookDTO create(@Valid @RequestBody BookCreateDTO bookData) {
-        return bookService.create(bookData);
+        return bookService.createBook(bookData);
     }
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public BookDTO update(@Valid @RequestBody BookUpdateDTO bookData, @PathVariable Long id) {
-        return bookService.update(bookData, id);
+        return bookService.updateBook(bookData, id);
     }
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void destroy(@PathVariable Long id) {
-        bookService.delete(id);
+        bookService.deleteBook(id);
     }
     // END
 }
