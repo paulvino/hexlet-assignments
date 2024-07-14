@@ -14,18 +14,27 @@ class App {
         MinThread minThread = new MinThread(numbers);
 
         maxThread.start();
+        LOGGER.log(Level.INFO, "Thread " + maxThread.getName() + " started");
         minThread.start();
+        LOGGER.log(Level.INFO, "Thread " + minThread.getName() + " started");
 
         try {
             maxThread.join();
+            LOGGER.log(Level.INFO, "Thread " + maxThread.getName() + " finished");
             minThread.join();
+            LOGGER.log(Level.INFO, "Thread " + minThread.getName() + " finished");
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Поток был прерван");
         }
 
-        Map<String, Integer> result = new HashMap<>();
-        result.put("min", minThread.getMin());
-        result.put("max", maxThread.getMax());
+        Map result = Map.of(
+                "min", minThread.getMin(),
+                "max", maxThread.getMax()
+        );
+        LOGGER.log(Level.INFO, "Result: " + result.toString());
+//        Map<String, Integer> result = new HashMap<>();
+//        result.put("min", minThread.getMin());
+//        result.put("max", maxThread.getMax());
         return result;
     }
     // END

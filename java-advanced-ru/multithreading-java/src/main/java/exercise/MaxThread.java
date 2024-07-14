@@ -2,8 +2,8 @@ package exercise;
 
 // BEGIN
 public class MaxThread extends Thread {
-    private final int[] numbers;
-    private int max;
+    private int[] numbers;
+    private int maximum;
 
     public MaxThread(int[] numbers) {
         this.numbers = numbers;
@@ -11,18 +11,19 @@ public class MaxThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("INFO: Thread " + Thread.currentThread().getName() + " started");
-        max = numbers[0];
+        int max = numbers[0];
+
         for (int number : numbers) {
             if (number > max) {
                 max = number;
             }
         }
-        System.out.println("INFO: Thread " + Thread.currentThread().getName() + " finished");
+
+        maximum = max;
     }
 
     public int getMax() {
-        return max;
+        return maximum;
     }
 }
 // END
