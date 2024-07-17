@@ -2,26 +2,25 @@ package exercise;
 
 class SafetyList {
     // BEGIN
-    private int[] list = new int[1];
-    private int size = 0;
+    private int[] data = new int[10];
+    private int size;
 
-    public synchronized void add(int n) {
-        if (size == list.length) {
-            int[] newElements = new int[list.length + 1];
-            System.arraycopy(list, 0, newElements, 0, size);
-            list = newElements;
+    public synchronized void add(int element) {
+        if (data.length == size) {
+            int[] extendedData = new int[data.length * 2];
+            System.arraycopy(data, 0, extendedData, 0, data.length);
+            data = extendedData;
         }
 
-        list[size] = n;
-        size++;
+        data[size++] = element;
     }
 
     public synchronized int get(int index) {
-        return list[index];
+        return data[index];
     }
 
     public synchronized int getSize() {
-        return list.length;
+        return size;
     }
     // END
 }

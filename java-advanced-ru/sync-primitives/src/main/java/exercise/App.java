@@ -13,11 +13,15 @@ class App {
         thread2.start();
 
         try {
+
             thread1.join();
             thread2.join();
+
         } catch (InterruptedException e) {
             System.out.println("Поток был прерван");
         }
+
+        System.out.println("Size: " + list.getSize());
         // END
     }
 }
