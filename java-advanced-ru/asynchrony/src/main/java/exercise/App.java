@@ -1,39 +1,54 @@
 package exercise;
 
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.concurrent.CompletableFuture;
 
 class App {
 
     // BEGIN
+    private static Path getFullPath(String filePath) {
+        return Paths.get(filePath).toAbsolutePath().normalize();
+    }
+
     public static CompletableFuture<String> unionFiles(String file1Path, String file2Path, String destPath) {
-        return CompletableFuture.supplyAsync(() -> {
+        
+        CompletableFuture<String> content1 = CompletableFuture.supplyAsync(() -> {
+            String content = "";
+
             try {
-                Path path1 = Paths.get(file1Path);
-                Path path2 = Paths.get(file2Path);
-                Path destFilePath = Paths.get(destPath);
-
-                if (!Files.exists(path1) || !Files.exists(path2)) {
-                    throw new NoSuchFileException("NoSuchFileException: Один или оба исходных файла не существуют.");
-                }
-
-                String content1 = Files.readString(path1);
-                String content2 = Files.readString(path2);
-                String combinedContent = content1 + content2;
-
-                Files.writeString(destFilePath, combinedContent);
-
-                return "Файл успешно создан и сохранен в: " + destFilePath;
-            } catch (NoSuchFileException e) {
-                System.out.println("Exception: " + e.getMessage());
-                return "Operation failed: " + e.getMessage();
+                content = Files.readString(getFullPath(file1Path));
             } catch (Exception e) {
-                System.out.println("An error occured: " + e.getMessage());
-                return "Operation failed: " + e.getMessage();
+                throw new RuntimeException(e);
             }
+            return content;
+        });
+
+        CompletableFuture<String> content2 = CompletableFuture.supplyAsync(() -> {
+            String content = "";
+
+            try {
+                content = Files.readString(getFullPath(file2Path));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return content;
+        });
+
+        return content1.thenCombine(content2, (cont1, cont2) -> {
+            String union = cont1 + cont2;
+            try {
+                Files.writeString(getFullPath(destPath), union, StandardOpenOption.CREATE);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return "ok!";
+
+        }).exceptionally(ex -> {
+            System.out.println("Oops! We have an exception – " + ex.getMessage());
+            return "Unknown";
         });
     }
     // END
@@ -43,11 +58,7 @@ class App {
         CompletableFuture<String> result = unionFiles(
                 "src/main/resources/file1.txt",
                 "src/main/resources/file2.txt",
-                "src/main/resources/result.txt");
-
-        result.thenAccept(System.out::println);
-
-        result.join();
+                "src/main/resources/dest.txt");
         // END
     }
 }
