@@ -51,7 +51,8 @@ public class AppTest {
 
     @Test
     void testGetPeople() throws Exception {
-        MockHttpServletResponse response = mockMvc.perform(get("/people"))
+        MockHttpServletResponse response = mockMvc
+                .perform(get("/people"))
                 .andReturn()
                 .getResponse();
 
@@ -64,11 +65,9 @@ public class AppTest {
     }
 
     @Test
-    void testShowPerson() throws Exception {
+    void testGetPerson() throws Exception {
         MockHttpServletResponse response = mockMvc
-                .perform(
-                        get("/people/1")
-                )
+                .perform(get("/people/1"))
                 .andReturn()
                 .getResponse();
 
@@ -104,9 +103,7 @@ public class AppTest {
     @Test
     void testDeletePerson() throws Exception {
         MockHttpServletResponse response = mockMvc
-                .perform(
-                        delete("/people/1")
-                )
+                .perform(delete("/people/1"))
                 .andReturn()
                 .getResponse();
 
